@@ -133,8 +133,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\core.h" />
     <ClCompile Include="src\engine\log.c" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\renderer\r_shader.c" />
+    <ClCompile Include="src\renderer\r_shader.h" />
     <ClCompile Include="vendor\glad\src\glad.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

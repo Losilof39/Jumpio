@@ -24,5 +24,14 @@
     <ClCompile Include="vendor\glad\src\glad.c">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\renderer\r_shader.h">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\core.h">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderer\r_shader.c">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

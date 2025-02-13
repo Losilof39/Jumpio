@@ -75,7 +75,7 @@ void InitRenderer2D()
 
 }
 
-void R2D_DrawColoredQuad(vec3* position, vec3* size, vec3* color)
+void R2D_DrawColoredQuad(vec3 position, vec3 size, vec3 color)
 {
 	mat4 model, translate, scale;
 

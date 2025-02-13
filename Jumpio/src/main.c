@@ -1,50 +1,43 @@
 #include <engine/core.h>
+#include "application/app.h"
 
-extern R2DStorage s_Data;
+//extern R2DStorage s_Data;
+
+static Application app;
 
 int main(int argc, char* argv[])
 {
-    vec3 color = {0.0, 1.0, 0.0};
-    vec3 pos = { 0 };
-    vec3 size = { 200, 200, 0};
+    app.title = "Jumpio";
+    app.version = "0.0.1";
 
-	// Creates Window
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-        log_error("Failed to init SDL3");
+    Application_Init(&app);
 
-    log_debug("SDL3 init successful");
+    Application_Run(&app);
 
-    pWindow = SDL_CreateWindow((const char*)"Jumpio",
-        640, 480, SDL_WINDOW_OPENGL);
+    Application_Cleanup(&app);
 
+    // Init OpenGL
 
-    if (!pWindow)
-    {
-        log_error("Failed to create a SDL window!");
-    }
-
-    log_debug("Window created");
-
-    SDL_ShowWindow(pWindow);
-
-    SDL_ShowCursor();
+    vec3 color = { 0.0, 1.0, 0.0 };
+    vec3 pos = { 100, 0, 0 };
+    vec3 size = { 200, 200, 0 };
 
     log_debug("Initializing OpenGL 4.6 ...");
-    // Init OpenGL
+
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 
-    glContext = SDL_GL_CreateContext(pWindow);
+    app.glContext = SDL_GL_CreateContext(app.pWindow);
 
-    if (glContext == NULL)
+    if (app.glContext == NULL)
     {
         printf("Failed to create an OpenGL context!\n");
         return -1;
     }
 
-    SDL_GL_MakeCurrent(pWindow, glContext);
+    SDL_GL_MakeCurrent(app.pWindow, app.glContext);
 
     if (gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress) < 0)
     {
@@ -69,7 +62,7 @@ int main(int argc, char* argv[])
 
     R2D_DrawColoredQuad(pos, size, color);
 
-    SDL_GL_SwapWindow(pWindow);
+    SDL_GL_SwapWindow(app.pWindow);
 
     SDL_Delay(1000);
 

@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\application\app.c" />
     <ClCompile Include="src\engine\core.h" />
     <ClCompile Include="src\engine\log.c" />
     <ClCompile Include="src\main.c" />
@@ -142,6 +143,8 @@
     <ClCompile Include="src\glad.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\application\app.h" />
+    <ClInclude Include="src\engine\EX.h" />
     <ClInclude Include="src\renderer\renderer2D.h" />
     <ClInclude Include="src\renderer\r_shader.h" />
     <ClInclude Include="vendor\glad\include\glad\glad.h" />

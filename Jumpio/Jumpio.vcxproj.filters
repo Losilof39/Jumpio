@@ -33,6 +33,9 @@
     <ClCompile Include="src\renderer\renderer2D.c">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\application\app.c">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\renderer\renderer2D.h">
@@ -48,6 +51,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\renderer\r_shader.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\application\app.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\EX.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

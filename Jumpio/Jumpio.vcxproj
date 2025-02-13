@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>$(SolutionDir)\Jumpio\vendor\SDL3\lib\x64;$(SolutionDir)\Jumpio\vendor\cglm\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\Jumpio\vendor\SDL3\include;$(SolutionDir)\Jumpio\vendor\cglm\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Jumpio\vendor\SDL3\include;$(SolutionDir)\Jumpio\vendor\cglm\include;$(SolutionDir)\Jumpio\vendor\log;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\log.c" />
     <ClCompile Include="src\main.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

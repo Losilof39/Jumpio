@@ -18,5 +18,8 @@
     <ClCompile Include="src\main.c">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\log.c">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

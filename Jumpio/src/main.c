@@ -23,6 +23,7 @@ int main(int argc, char* argv[])
 
     SDL_ShowCursor();
 
+    log_debug("Initializing OpenGL 4.6 ...");
     // Init OpenGL
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -45,14 +46,16 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    log_debug("OpenGL 4.6 context created successfully");
+
     // enable OpenGL 4.6 debug features
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(MessageCallback, 0);
 
-    char* cwd;
-    cwd = SDL_GetCurrentDirectory();
+    log_debug("Debug Output feature is enabled");
 
+    log_debug("Inititializing sprite renderer");
     InitRenderer2D();
 
     glClearColor(1.0f, 0.0f, 0.0f, 1.0f);

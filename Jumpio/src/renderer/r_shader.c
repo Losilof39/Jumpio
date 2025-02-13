@@ -42,7 +42,6 @@ Shader Shader_Create(const char* name, const char* pVertPath, const char* pFragP
     VertSource = Shader_GetSource(pVertPath);
     FragSource = Shader_GetSource(pFragPath);
 
-
     // create shaders and program
     mVertShader = glCreateShader(GL_VERTEX_SHADER);
     mFragShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -56,20 +55,8 @@ Shader Shader_Create(const char* name, const char* pVertPath, const char* pFragP
     // Vertex Shader
     glGetShaderiv(mVertShader, GL_COMPILE_STATUS, &success);
 
-    if (!success)
-    {
-        glGetShaderInfoLog(mVertShader, 512, NULL, InfoLog);
-        log_error("[ERROR] Failed to compile vertex shader: %s", InfoLog);
-    }
-
     // Fragment Shader
     glGetShaderiv(mFragShader, GL_COMPILE_STATUS, &success);
-
-    if (!success)
-    {
-        glGetShaderInfoLog(mFragShader, 512, NULL, InfoLog);
-        log_error("[ERROR] Failed to compile fragment shader: %s", InfoLog);
-    }
 
     shader.programID = glCreateProgram();
     glAttachShader(shader.programID, mVertShader);
@@ -79,15 +66,6 @@ Shader Shader_Create(const char* name, const char* pVertPath, const char* pFragP
 
     glDeleteShader(mVertShader);
     glDeleteShader(mFragShader);
-
-    // check for compiler errors in compiling shaders
-   /* glGetShaderiv(shader.programID, GL_COMPILE_STATUS, &success);
-
-    if (!success)
-    {
-        glGetShaderInfoLog(shader.programID, 512, NULL, InfoLog);
-        log_error("[ERROR] Failed to compile shaders: %s", InfoLog);
-    }*/
 
     return shader;
 }
@@ -107,7 +85,7 @@ void Shader_SetInt(Shader shader, const char* uniform, int value)
     glUniform1i(glGetUniformLocation(shader.programID, uniform), value);
 
     if (glGetUniformLocation(shader.programID, uniform) == -1)
-        log_error("[ERROR] %s not found in %s shader", uniform, shader.name);
+        log_error("%s not found in %s shader", uniform, shader.name);
 }
 
 void Shader_SetBoolean(Shader shader, const char* uniform, bool value)
@@ -115,7 +93,7 @@ void Shader_SetBoolean(Shader shader, const char* uniform, bool value)
     glUniform1i(glGetUniformLocation(shader.programID, uniform), (GLint)value);
 
     if (glGetUniformLocation(shader.programID, uniform) == -1)
-        log_error("[ERROR] %s not found in %s shader", uniform, shader.name);
+        log_error("%s not found in %s shader", uniform, shader.name);
 }
 
 void Shader_SetFloat(Shader shader, const char* uniform, float value)
@@ -123,7 +101,7 @@ void Shader_SetFloat(Shader shader, const char* uniform, float value)
     glUniform1f(glGetUniformLocation(shader.programID, uniform), value);
 
     if (glGetUniformLocation(shader.programID, uniform) == -1)
-        log_error("[ERROR] %s not found in %s shader", uniform, shader.name);
+        log_error("%s not found in %s shader", uniform, shader.name);
 }
 
 void Shader_SetMat4(Shader shader, const char* uniform, mat4 value)
@@ -131,7 +109,7 @@ void Shader_SetMat4(Shader shader, const char* uniform, mat4 value)
     glUniformMatrix4fv(glGetUniformLocation(shader.programID, uniform), 1, GL_FALSE, value[0]);
 
     if (glGetUniformLocation(shader.programID, uniform) == -1)
-        log_error("[ERROR] %s not found in %s shader", uniform, shader.name);
+        log_error("%s not found in %s shader", uniform, shader.name);
 }
 
 void Shader_SetVec3(Shader shader, const char* uniform, vec3 value)
@@ -139,7 +117,7 @@ void Shader_SetVec3(Shader shader, const char* uniform, vec3 value)
     glUniform3fv(glGetUniformLocation(shader.programID, uniform), 1, value);
 
     if (glGetUniformLocation(shader.programID, uniform) == -1)
-        log_error("[ERROR] %s not found in %s shader", uniform, shader.name);
+        log_error("%s not found in %s shader", uniform, shader.name);
 }
 
 void Shader_SetVec4(Shader shader, const char* uniform, vec4 value)
@@ -147,5 +125,5 @@ void Shader_SetVec4(Shader shader, const char* uniform, vec4 value)
     glUniform4fv(glGetUniformLocation(shader.programID, uniform), 1, value);
 
     if (glGetUniformLocation(shader.programID, uniform) == -1)
-        log_error("[ERROR] %s not found in %s shader", uniform, shader.name);
+        log_error("%s not found in %s shader", uniform, shader.name);
 }

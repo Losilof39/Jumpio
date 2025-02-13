@@ -75,6 +75,30 @@ void InitRenderer2D()
 
 }
 
+void R2D_DrawColoredQuad(vec3* position, vec3* size, vec3* color)
+{
+	mat4 model, translate, scale;
+
+	glm_mat4_identity(model);
+	glm_mat4_identity(translate);
+	glm_mat4_identity(scale);
+
+	glm_scale(scale, size);
+	glm_translate(translate, position);
+	glm_mat4_mul(translate, scale, model);
+
+	Shader_Use(s_Data.flatColorShader);
+	Shader_SetVec3(s_Data.flatColorShader, "u_Color", color);
+	Shader_SetMat4(s_Data.flatColorShader, "u_Model", model);
+
+	glBindVertexArray(s_Data.VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(0);
+
+
+	Shader_Unbind();
+}
+
 //void R2D_DrawSprite(vec3* position, vec2 size, GLTexData* tex)
 //{
 //	twodcommand* newNode = (twodcommand*)malloc(sizeof(twodcommand));

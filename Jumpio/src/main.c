@@ -1,7 +1,13 @@
 #include <engine/core.h>
 
+extern R2DStorage s_Data;
+
 int main(int argc, char* argv[])
 {
+    vec3 color = {0.0, 1.0, 0.0};
+    vec3 pos = { 0 };
+    vec3 size = { 200, 200, 0};
+
 	// Creates Window
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         log_error("Failed to init SDL3");
@@ -60,6 +66,8 @@ int main(int argc, char* argv[])
 
     glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+
+    R2D_DrawColoredQuad(pos, size, color);
 
     SDL_GL_SwapWindow(pWindow);
 

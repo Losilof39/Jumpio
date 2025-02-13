@@ -8,6 +8,6 @@
 #include <glad/glad.h>
 
 SDL_GLContext glContext;
-SDL_Window* pWindow = NULL;
+SDL_Window* pWindow;
 
 #endif

@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
     log_debug("SDL3 init successful");
 
     pWindow = SDL_CreateWindow((const char*)"Jumpio",
-        640, 480, SDL_WINDOW_OPENGL | false);
+        640, 480, SDL_WINDOW_OPENGL);
 
 
     if (!pWindow)
@@ -31,13 +31,14 @@ int main(int argc, char* argv[])
     SDL_ShowCursor();
 
     // Init OpenGL
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
     glContext = SDL_GL_CreateContext(pWindow);
 
-    if (!glContext)
+    if (glContext == NULL)
     {
         printf("Failed to create an OpenGL context!\n");
         return -1;
@@ -51,7 +52,10 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    SDL_GL_SwapWindow(pWindow);
 
     SDL_Delay(4000);
 

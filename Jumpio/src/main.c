@@ -1,15 +1,7 @@
 #include <engine/core.h>
 
-
 int main(int argc, char* argv[])
 {
-	log_trace("Hello %s", "world");
-	log_debug("Hello %s", "world");
-	log_info ("Hello %s", "world");
-	log_warn ("Hello %s", "world");
-	log_error("Hello %s", "world");
-	log_fatal("Hello %s", "world");
-
 	// Creates Window
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         log_error("Failed to init SDL3");
@@ -58,7 +50,10 @@ int main(int argc, char* argv[])
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(MessageCallback, 0);
 
-    glTexParameteri(GL_FRAMEBUFFER, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    char* cwd;
+    cwd = SDL_GetCurrentDirectory();
+
+    InitRenderer2D();
 
     glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);

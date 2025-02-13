@@ -108,6 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;LOG_USE_COLOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard_C>Default</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,14 +139,18 @@
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\renderer\renderer2D.c" />
     <ClCompile Include="src\renderer\r_shader.c" />
-    <ClCompile Include="src\renderer\r_shader.h" />
     <ClCompile Include="src\glad.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\renderer\renderer2D.h" />
+    <ClInclude Include="src\renderer\r_shader.h" />
     <ClInclude Include="vendor\glad\include\glad\glad.h" />
     <ClInclude Include="vendor\glad\include\KHR\khrplatform.h" />
     <ClInclude Include="src\engine\log.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\renderer\shaders\flatcolor.ps" />
+    <None Include="src\renderer\shaders\flatcolor.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

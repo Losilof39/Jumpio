@@ -1,6 +1,7 @@
 #include "r_shader.h"
 #include <glad/glad.h>
 #include <string.h>
+#include <engine/log.h>
 
 char* Shader_GetSource(const char* fileName)
 {
@@ -11,7 +12,7 @@ char* Shader_GetSource(const char* fileName)
     /* Read File to get size */
     fp = fopen(fileName, "rb");
     if (fp == NULL) {
-        printf("Failed to read shader: %s\n", fileName);
+        log_error("Failed to read shader: %s\n", fileName);
         return "";
     }
     fseek(fp, 0L, SEEK_END);
@@ -80,13 +81,13 @@ Shader Shader_Create(const char* name, const char* pVertPath, const char* pFragP
     glDeleteShader(mFragShader);
 
     // check for compiler errors in compiling shaders
-    glGetShaderiv(shader.programID, GL_COMPILE_STATUS, &success);
+   /* glGetShaderiv(shader.programID, GL_COMPILE_STATUS, &success);
 
     if (!success)
     {
         glGetShaderInfoLog(shader.programID, 512, NULL, InfoLog);
         log_error("[ERROR] Failed to compile shaders: %s", InfoLog);
-    }
+    }*/
 
     return shader;
 }

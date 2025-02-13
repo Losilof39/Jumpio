@@ -24,9 +24,6 @@
     <ClCompile Include="src\glad.c">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\renderer\r_shader.h">
-      <Filter>File di origine</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\core.h">
       <Filter>File di origine</Filter>
     </ClCompile>
@@ -50,5 +47,12 @@
     <ClInclude Include="src\engine\log.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="src\renderer\r_shader.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\renderer\shaders\flatcolor.ps" />
+    <None Include="src\renderer\shaders\flatcolor.vs" />
   </ItemGroup>
 </Project>

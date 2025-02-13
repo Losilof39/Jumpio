@@ -4,7 +4,7 @@
 
 #include <cglm.h>
 
-typedef struct
+typedef struct Shader
 {
 	const char* name;
 	unsigned int programID;

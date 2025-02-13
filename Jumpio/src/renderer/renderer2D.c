@@ -49,7 +49,7 @@ void InitRenderer2D()
 
 	// REMEMBER TO REIMPLEMENT THIS IF YOU WANNA SEE SMTH!!
 
-	//s_Data.flatColorShader = Shader_Create("flatcolor", "shader_files/flatcolor.vs", "shader_files/flatcolor.ps");
+	s_Data.flatColorShader = Shader_Create("flatcolor", "shaders/flatcolor.vs", "shaders/flatcolor.ps");
 	//s_Data.spriteShader = Shader_Create("sprite", "shader_files/sprite.vs", "shader_files/sprite.ps");
 
 	glm_ortho(0.0f,
@@ -68,6 +68,10 @@ void InitRenderer2D()
 	Shader_Use(s_Data.flatColorShader);
 	Shader_SetMat4(s_Data.flatColorShader, "u_Ortho", s_Data.camOrtho);
 	Shader_Unbind();*/
+
+	Shader_Use(s_Data.flatColorShader);
+	Shader_SetMat4(s_Data.flatColorShader, "u_Ortho", s_Data.camOrtho);
+	Shader_Unbind();
 
 }
 

@@ -21,5 +21,8 @@
     <ClCompile Include="src\engine\log.c">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="vendor\glad\src\glad.c">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>$(SolutionDir)\Jumpio\vendor\SDL3\lib\x64;$(SolutionDir)\Jumpio\vendor\cglm\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\Jumpio\vendor\SDL3\include;$(SolutionDir)\Jumpio\vendor\cglm\include;$(SolutionDir)\Jumpio\vendor\log;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Jumpio\vendor\SDL3\include;$(SolutionDir)\Jumpio\vendor\cglm\include;$(SolutionDir)\Jumpio\vendor\log;$(SolutionDir)\Jumpio\vendor\glad\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -106,7 +106,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;LOG_USE_COLOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="src\engine\log.c" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="vendor\glad\src\glad.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

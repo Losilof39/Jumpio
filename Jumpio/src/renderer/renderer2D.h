@@ -15,7 +15,7 @@ typedef struct s_R2DStorage
 }R2DStorage;
 
 // 2D draw command
-typedef struct s_twodcommand
+typedef struct twodcommand
 {
 	unsigned int glTexture;
 	vec3 position;
@@ -23,6 +23,15 @@ typedef struct s_twodcommand
 	float light;
 	struct twodcommand* next;
 }twodcommand;
+
+void GLAPIENTRY
+MessageCallback(GLenum source,
+	GLenum type,
+	GLuint id,
+	GLenum severity,
+	GLsizei length,
+	const GLchar* message,
+	const void* userParam);
 
 void InitRenderer2D();
 

@@ -1,5 +1,6 @@
 #include <engine/core.h>
 
+
 int main(int argc, char* argv[])
 {
 	log_trace("Hello %s", "world");
@@ -33,8 +34,8 @@ int main(int argc, char* argv[])
     // Init OpenGL
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 
     glContext = SDL_GL_CreateContext(pWindow);
 
@@ -52,12 +53,19 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    // enable OpenGL 4.6 debug features
+    glEnable(GL_DEBUG_OUTPUT);
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    glDebugMessageCallback(MessageCallback, 0);
+
+    glTexParameteri(GL_FRAMEBUFFER, GL_TEXTURE_WRAP_S, GL_REPEAT);
+
     glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     SDL_GL_SwapWindow(pWindow);
 
-    SDL_Delay(4000);
+    SDL_Delay(1000);
 
 	return 0;
 }

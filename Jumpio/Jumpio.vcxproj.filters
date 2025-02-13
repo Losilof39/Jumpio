@@ -21,7 +21,7 @@
     <ClCompile Include="src\engine\log.c">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\glad\src\glad.c">
+    <ClCompile Include="src\glad.c">
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\renderer\r_shader.h">
@@ -39,6 +39,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\renderer\renderer2D.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glad\include\KHR\khrplatform.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glad\include\glad\glad.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\log.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

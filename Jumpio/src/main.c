@@ -1,13 +1,7 @@
-#include <stdio.h>
-#include <SDL3/SDL.h>
-#include <cglm.h>
-#include <log.h>
-#include <glad/glad.h>
+#include <engine/core.h>
 
 int main(int argc, char* argv[])
 {
-    SDL_Window* pWindow;
-
 	log_trace("Hello %s", "world");
 	log_debug("Hello %s", "world");
 	log_info ("Hello %s", "world");
@@ -15,13 +9,13 @@ int main(int argc, char* argv[])
 	log_error("Hello %s", "world");
 	log_fatal("Hello %s", "world");
 
-	// 
+	// Creates Window
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         log_error("Failed to init SDL3");
 
     log_debug("SDL3 init successful");
 
-    pWindow = SDL_CreateWindow((const char*)"window_title",
+    pWindow = SDL_CreateWindow((const char*)"Jumpio",
         640, 480, SDL_WINDOW_OPENGL | false);
 
 
@@ -35,6 +29,29 @@ int main(int argc, char* argv[])
     SDL_ShowWindow(pWindow);
 
     SDL_ShowCursor();
+
+    // Init OpenGL
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
+    glContext = SDL_GL_CreateContext(pWindow);
+
+    if (!glContext)
+    {
+        printf("Failed to create an OpenGL context!\n");
+        return -1;
+    }
+
+    SDL_GL_MakeCurrent(pWindow, glContext);
+
+    if (gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress) < 0)
+    {
+        printf("Failed to load OpenGL library!\n");
+        return -1;
+    }
+
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     SDL_Delay(4000);
 

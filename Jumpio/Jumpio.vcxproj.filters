@@ -33,5 +33,13 @@
     <ClCompile Include="src\renderer\r_shader.c">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\renderer\renderer2D.c">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\renderer\renderer2D.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

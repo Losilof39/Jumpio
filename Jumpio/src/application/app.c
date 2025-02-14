@@ -2,6 +2,7 @@
 #include "app.h"
 #include "engine/input.h"
 #include "engine/renderer/renderer2D.h"
+#include "engine/log.h"
 
 void Application_Init(Application* app)
 {
@@ -28,11 +29,11 @@ void Application_Init(Application* app)
 
     log_debug("Initializing OpenGL 4.6 ...");
 
+    //Memory_Init();
+    //Filesystem_Init();
+    //Audio_Init();
     Input_Init();
     Renderer2D_Init(app->pWindow);
-    // Memory_Init();
-    // Audio_Init();
-    // Filesystem_Init();
 }
 
 void Application_Menu()

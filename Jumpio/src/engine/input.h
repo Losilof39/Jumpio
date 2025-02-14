@@ -1,6 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include <SDL3/SDL.h>
 #include "engine/core.h"
 
 #define KEYBOARD_KEY_MAX 256

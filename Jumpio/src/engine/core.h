@@ -1,12 +1,8 @@
 #ifndef CORE_H
 #define CORE_H
 
-#include <stdio.h>
-#include <SDL3/SDL.h>
-#include <cglm.h>
-#include <glad/glad.h>
 #include <stdint.h>
-#include "log.h"
+#include <SDL3/SDL.h>
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480

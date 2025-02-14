@@ -1,6 +1,8 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#define MOUSE_BOTTONS_MAX 5
+
 void Input_Init();
 void Input_Update();
 void Input_Cleanup();

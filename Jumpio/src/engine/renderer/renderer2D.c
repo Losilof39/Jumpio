@@ -24,7 +24,7 @@ typedef struct twodcommand
 	struct twodcommand* next;
 }twodcommand;
 
-static RenderState renderState;
+static RenderState RState;
 static twodcommand* head_command = NULL;
 
 void GLAPIENTRY
@@ -49,14 +49,14 @@ void Renderer2D_StartOpenGL()
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 
-	renderState.glContext = SDL_GL_CreateContext(renderState.pWindow);
+	RState.glContext = SDL_GL_CreateContext(RState.pWindow);
 
-	if (renderState.glContext == NULL)
+	if (RState.glContext == NULL)
 	{
 		log_error("Failed to create an OpenGL context!\n");
 	}
 
-	SDL_GL_MakeCurrent(renderState.pWindow, renderState.glContext);
+	SDL_GL_MakeCurrent(RState.pWindow, RState.glContext);
 
 	if (gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress) < 0)
 	{
@@ -75,7 +75,7 @@ void Renderer2D_StartOpenGL()
 
 void Renderer2D_Init(SDL_Window* window)
 {
-	renderState.pWindow = window;
+	RState.pWindow = window;
 
 	Renderer2D_StartOpenGL();
 
@@ -92,13 +92,13 @@ void Renderer2D_Init(SDL_Window* window)
 		1.0f, 0.0f, 1.0f, 0.0f
 	};
 
-	glGenVertexArrays(1, &renderState.VAO);
+	glGenVertexArrays(1, &RState.VAO);
 	glGenBuffers(1, &VBO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glBindVertexArray(renderState.VAO);
+	glBindVertexArray(RState.VAO);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -107,16 +107,16 @@ void Renderer2D_Init(SDL_Window* window)
 
 	// REMEMBER TO REIMPLEMENT THIS IF YOU WANNA SEE SMTH!!
 
-	renderState.flatColorShader = Shader_Create("flatcolor", "shaders/flatcolor.vs", "shaders/flatcolor.ps");
+	RState.flatColorShader = Shader_Create("flatcolor", "shaders/flatcolor.vs", "shaders/flatcolor.ps");
 	//s_Data.spriteShader = Shader_Create("sprite", "shader_files/sprite.vs", "shader_files/sprite.ps");
 
 	glm_ortho(0.0f,
-		(float)640,
-		(float)480,
+		(float)WINDOW_WIDTH,
+		(float)WINDOW_HEIGHT,
 		0.0f,
 		-1.0f,
 		1.0f,
-		renderState.camOrtho);
+		RState.camOrtho);
 
 	/*Shader_Use(s_Data.spriteShader);
 	Shader_SetMat4(renderState.spriteShader, "u_Ortho", renderState.camOrtho);
@@ -127,8 +127,8 @@ void Renderer2D_Init(SDL_Window* window)
 	Shader_SetMat4(renderState.flatColorShader, "u_Ortho", renderState.camOrtho);
 	Shader_Unbind();*/
 
-	Shader_Use(renderState.flatColorShader);
-	Shader_SetMat4(renderState.flatColorShader, "u_Ortho", renderState.camOrtho);
+	Shader_Use(RState.flatColorShader);
+	Shader_SetMat4(RState.flatColorShader, "u_Ortho", RState.camOrtho);
 	Shader_Unbind();
 
 }
@@ -139,16 +139,16 @@ void Renderer2D_Cleanup()
 
 void R2D_StartRendition(void)
 {
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void R2D_StopRendition(void)
 {
-	SDL_GL_SwapWindow(renderState.pWindow);
+	SDL_GL_SwapWindow(RState.pWindow);
 }
 
-void R2D_DrawColoredQuad(vec3 position, vec3 size, vec3 color)
+void R2D_DrawColoredQuad(vec3 position, vec2 size, vec3 color)
 {
 	mat4 model, translate, scale;
 
@@ -160,11 +160,11 @@ void R2D_DrawColoredQuad(vec3 position, vec3 size, vec3 color)
 	glm_translate(translate, position);
 	glm_mat4_mul(translate, scale, model);
 
-	Shader_Use(renderState.flatColorShader);
-	Shader_SetVec3(renderState.flatColorShader, "u_Color", color);
-	Shader_SetMat4(renderState.flatColorShader, "u_Model", model);
+	Shader_Use(RState.flatColorShader);
+	Shader_SetVec3(RState.flatColorShader, "u_Color", color);
+	Shader_SetMat4(RState.flatColorShader, "u_Model", model);
 
-	glBindVertexArray(renderState.VAO);
+	glBindVertexArray(RState.VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
 

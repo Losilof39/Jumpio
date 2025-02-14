@@ -15,11 +15,12 @@ typedef struct Application
 
 enum GameState{ G_MENU = 0, G_ACTIVE, G_DEATH, G_EXIT };
 
-void Application_Init(Application* app);
+void Application_Init();
 void Application_Run(Application* app);
-void Application_Cleanup(Application* app);
-void Application_Menu();
-void Application_Active();
-void Application_Death();
+void Application_Update();
+void Application_Cleanup();
+void Application_Menu(f32 delta);
+void Application_Active(f32 delta);
+void Application_Death(f32 delta);
 
 #endif

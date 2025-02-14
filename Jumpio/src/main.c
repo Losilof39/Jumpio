@@ -1,4 +1,3 @@
-#include "engine/core.h"
 #include "application/app.h"
 
 int main(int argc, char** argv)
@@ -12,11 +11,7 @@ int main(int argc, char** argv)
     app.title = "Jumpio";
     app.version = "0.0.1";
 
-    Application_Init(&app);
-
     Application_Run(&app);
-
-    Application_Cleanup(&app);
 
 	return 0;
 }

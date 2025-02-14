@@ -24,7 +24,7 @@
     <ClCompile Include="vendor\glad\src\glad.c">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\core.h">
+    <ClCompile Include="src\engine\data_types.h">
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\renderer\r_shader.c">
@@ -40,6 +40,12 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\audio.c">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test.c">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\time.c">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,6 +72,15 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\audio.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\engine.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\time.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

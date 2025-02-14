@@ -1,12 +1,10 @@
 #include <glad/glad.h>
 #include "app.h"
-#include "engine/input.h"
-#include "engine/renderer/renderer2D.h"
-#include "engine/log.h"
+#include "engine/engine.h"
 
-static Application* pGame;
+static Application* appPtr;
 
-void Application_Init()
+void Application_Startup()
 {
     // Creates Window
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -14,18 +12,18 @@ void Application_Init()
 
     log_info("SDL3 init successful");
 
-    pGame->pWindow = SDL_CreateWindow((const char*)pGame->title,
+    appPtr->pWindow = SDL_CreateWindow((const char*)appPtr->title,
         WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL);
 
 
-    if ( !(pGame->pWindow) )
+    if ( !(appPtr->pWindow) )
     {
         log_error("Failed to create a SDL window!");
     }
 
     log_info("Window created");
 
-    SDL_ShowWindow(pGame->pWindow);
+    SDL_ShowWindow(appPtr->pWindow);
 
     SDL_ShowCursor();
 
@@ -38,32 +36,7 @@ void Application_Init()
     log_info("Init input system...");
     Input_Init();
     log_info("Init renderer system...");
-    Renderer2D_Init(pGame->pWindow);
-}
-vec3 pos = { 0 };
-
-void Application_Menu(f32 delta)
-{
-    vec2 size = { 100, 100 };
-    vec3 col = { 1.0f, 1.0f, 1.0f };
-
-    pos[0] += delta * Input_IsKeyDown(SDL_SCANCODE_D) * 1000.0f;
-    pos[1] += delta * Input_IsKeyDown(SDL_SCANCODE_S) * 1000.0f;
-
-    pos[0] -= delta * Input_IsKeyDown(SDL_SCANCODE_A) * 1000.0f;
-    pos[1] -= delta * Input_IsKeyDown(SDL_SCANCODE_W) * 1000.0f;
-
-    R2D_DrawColoredQuad(pos, size, col);
-}
-
-void Application_Active(f32 delta)
-{
-
-}
-
-void Application_Death(f32 delta)
-{
-
+    Renderer2D_Init(appPtr->pWindow);
 }
 
 void Application_Update()
@@ -71,36 +44,17 @@ void Application_Update()
     SDL_Event ev;
     SDL_Time start;
     SDL_Time end;
-    f32 deltaTime = 0.0f;
+    f32 delta;
 
-    pGame->gState = G_MENU;
+    appPtr->exit = false;
 
-    while ( (pGame->gState != G_EXIT) )
+    while ( (!appPtr->exit) )
     {
         start = SDL_GetTicks();
 
         R2D_StartRendition();
 
-        switch (pGame->gState)
-        {
-        case G_MENU:
-        {
-            Application_Menu(deltaTime);
-        }break;
-
-        case G_ACTIVE:
-        {
-            Application_Active(deltaTime);
-        }break;
-
-        case G_DEATH:
-        {
-            Application_Death(deltaTime);
-        }break;
-
-        default:
-            break;
-        }
+        appPtr->Update();
 
         while (SDL_PollEvent(&ev))
         {
@@ -108,7 +62,7 @@ void Application_Update()
             {
             case SDL_EVENT_QUIT:
             {
-                pGame->gState = G_EXIT;
+                appPtr->exit = true;
             }break;
 
             case SDL_EVENT_KEY_DOWN:
@@ -137,25 +91,34 @@ void Application_Update()
 
         end = SDL_GetTicks();
 
-        deltaTime = (f32)(end - start) / 1000.0f;
+        delta = (f32)(end - start) / 1000.0f;
+
+        Time_SetDeltaTime(delta);
     }
 }
 
 void Application_Cleanup()
 {
+    appPtr->Cleanup();
+
     Input_Cleanup();
     Renderer2D_Cleanup();
     Audio_Cleanup();
 
-    SDL_DestroyWindow(pGame->pWindow);
+    SDL_DestroyWindow(appPtr->pWindow);
     SDL_Quit();
+
+    log_info("Engine Shutdown");
 }
 
 void Application_Run(Application* app)
 {
-    pGame = app;
+    appPtr = app;
 
-    Application_Init();
+    Application_Startup();
+
+    appPtr->Init();
+
     Application_Update();
     Application_Cleanup();
 }

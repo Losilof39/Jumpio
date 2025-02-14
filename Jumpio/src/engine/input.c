@@ -87,6 +87,22 @@ b8 Input_IsKeyUp(SDL_Scancode c)
 	return !input->curKeyboard.keys[c];
 }
 
+b8 Input_WasKeyDown(SDL_Scancode c)
+{
+	if (input == NULL)
+		return false;
+
+	return input->prevKeyboard.keys[c];
+}
+
+b8 Input_WasKeyUp(SDL_Scancode c)
+{
+	if (input == NULL)
+		return false;
+
+	return !input->prevKeyboard.keys[c];
+}
+
 b8 Input_IsButtonDown(u8 button)
 {
 	if (input == NULL)

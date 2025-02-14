@@ -1,7 +1,6 @@
-#ifndef APP_H
-#define	APP_H
+#pragma once
 
-#include "engine/core.h"
+#include "engine/data_types.h"
 
 typedef struct Application
 {
@@ -10,17 +9,15 @@ typedef struct Application
 	u8 width;
 	u8 height;
 	SDL_Window* pWindow;
-	enum GameState gState;
+	b8 exit;
+
+	void (*Init)(void);
+	void (*Update)(void);
+	void (*Cleanup)(void);
+
 }Application;
 
-enum GameState{ G_MENU = 0, G_ACTIVE, G_DEATH, G_EXIT };
-
-void Application_Init();
+void Application_Startup();
 void Application_Run(Application* app);
 void Application_Update();
 void Application_Cleanup();
-void Application_Menu(f32 delta);
-void Application_Active(f32 delta);
-void Application_Death(f32 delta);
-
-#endif

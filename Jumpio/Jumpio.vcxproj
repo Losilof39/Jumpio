@@ -136,9 +136,11 @@
   <ItemGroup>
     <ClCompile Include="src\application\app.c" />
     <ClCompile Include="src\engine\audio.c" />
-    <ClCompile Include="src\engine\core.h" />
+    <ClCompile Include="src\engine\data_types.h" />
     <ClCompile Include="src\engine\input.c" />
     <ClCompile Include="src\engine\log.c" />
+    <ClCompile Include="src\engine\time.c" />
+    <ClCompile Include="src\test.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\engine\renderer\renderer2D.c" />
     <ClCompile Include="src\engine\renderer\r_shader.c" />
@@ -147,9 +149,12 @@
   <ItemGroup>
     <ClInclude Include="src\application\app.h" />
     <ClInclude Include="src\engine\audio.h" />
+    <ClInclude Include="src\engine\engine.h" />
     <ClInclude Include="src\engine\input.h" />
     <ClInclude Include="src\engine\renderer\renderer2D.h" />
     <ClInclude Include="src\engine\renderer\r_shader.h" />
+    <ClInclude Include="src\engine\time.h" />
+    <ClInclude Include="src\test.h" />
     <ClInclude Include="vendor\glad\include\glad\glad.h" />
     <ClInclude Include="vendor\glad\include\KHR\khrplatform.h" />
     <ClInclude Include="src\engine\log.h" />

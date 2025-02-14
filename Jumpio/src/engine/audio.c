@@ -1,6 +1,5 @@
 #include "audio.h"
 #include "log.h"
-#include <SDL3/SDL_mixer.h>
 
 void Audio_Init()
 {
@@ -16,8 +15,9 @@ void Audio_Init()
         log_error("Unable to set up sound.");
     }
 
-    
-    //Mix_Init();
+    if (!Mix_Init(MIX_INIT_MP3)) {
+        log_error("Couldn't initialize audio with MP3 support: %s", SDL_GetError());
+    }
 
     if (!Mix_OpenAudio(0, &spec)) {
         log_error("Couldn't open audio: %s", SDL_GetError());
@@ -43,6 +43,16 @@ void Audio_Cleanup()
     Mix_CloseAudio();
 }
 
+Mix_Chunk* Audio_LoadWav(char* file)
+{
+    return Mix_LoadWAV(file);
+}
+
+Mix_Chunk* Audio_LoadMP3(char* file)
+{
+    return Mix_LoadWAV(file);
+}
+
 void Audio_PlaySong()
 {
 }
@@ -64,9 +74,9 @@ void Audio_SetMusicVolume(u32 vol)
     Mix_VolumeMusic(vol);
 }
 
-void Audio_PlaySound()
+void Audio_PlaySound(Mix_Chunk* snd, b8 loop)
 {
-
+    Mix_PlayChannel(0, snd, loop);
 }
 
 void Audio_StopSound()

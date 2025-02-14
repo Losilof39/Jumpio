@@ -2,7 +2,7 @@
 #define RENDERER2D_H
 
 #include <glad/glad.h>
-#include "engine/core.h"
+#include "engine/data_types.h"
 #include "r_shader.h"
 
 void GLAPIENTRY

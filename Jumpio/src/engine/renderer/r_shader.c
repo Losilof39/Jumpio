@@ -1,7 +1,7 @@
-#include "r_shader.h"
 #include <glad/glad.h>
 #include <string.h>
-#include <engine/log.h>
+#include "r_shader.h"
+#include "engine/log.h"
 
 char* Shader_GetSource(const char* fileName)
 {

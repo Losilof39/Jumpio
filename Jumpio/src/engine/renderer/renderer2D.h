@@ -14,6 +14,7 @@ MessageCallback(GLenum source,
 	const void* userParam);
 
 void Renderer2D_Init();
+void Renderer2D_Cleanup();
 
 void R2D_StartRendition(void);
 void R2D_StopRendition(void);

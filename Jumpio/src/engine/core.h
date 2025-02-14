@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include <SDL3/SDL.h>
 #include <cglm.h>
-#include <engine/log.h>
 #include <glad/glad.h>
-#include "renderer/renderer2D.h"
 #include <stdint.h>
+#include "log.h"
+#include "renderer/renderer2D.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480

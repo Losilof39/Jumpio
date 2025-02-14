@@ -1,4 +1,5 @@
 #include "app.h"
+#include "engine/input.h"
 
 void Application_Init(Application* app)
 {
@@ -53,7 +54,11 @@ void Application_Init(Application* app)
 
     log_debug("Debug Output feature is enabled");
 
+    Input_Init();
     Renderer2D_Init();
+    // Memory_Init();
+    // Audio_Init();
+    // Filesystem_Init();
 }
 
 void Application_Menu()
@@ -89,28 +94,20 @@ void Application_Run(Application* app)
             }break;
 
             case SDL_EVENT_KEY_DOWN:
-            {
-
-            }break;
-
             case SDL_EVENT_KEY_UP:
             {
-
+                Input_ProcessKey(&ev.key);
             }break;
 
             case SDL_EVENT_MOUSE_BUTTON_DOWN:
-            {
-
-            }break;
-
             case SDL_EVENT_MOUSE_BUTTON_UP:
             {
-
+                Input_ProcessMouseButton(&ev.button);
             }break;
 
             case SDL_EVENT_MOUSE_MOTION:
             {
-
+                Input_ProcessMouseMotion(&ev.motion);
             }break;
 
             default:
@@ -143,6 +140,9 @@ void Application_Run(Application* app)
 
 void Application_Cleanup(Application* app)
 {
+    Input_Cleanup();
+    Renderer2D_Cleanup();
+
+    SDL_DestroyWindow(app->pWindow);
     SDL_Quit();
-    free(app);
 }

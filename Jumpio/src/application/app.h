@@ -11,9 +11,9 @@ typedef struct Application
 	SDL_Window* pWindow;
 	b8 exit;
 
-	void (*Init)(void);
-	void (*Update)(void);
-	void (*Cleanup)(void);
+	void (*Init)();
+	void (*Update)();
+	void (*Cleanup)();
 
 }Application;
 

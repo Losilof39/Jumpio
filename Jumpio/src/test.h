@@ -17,7 +17,7 @@ void Test_Init();
 void Test_Update();
 void Test_Cleanup();
 
-void Test_Menu(f32 delta);
+void Test_Menu();
 void Test_Active(f32 delta);
 void Test_RestartRound();
 

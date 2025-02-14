@@ -7,7 +7,6 @@ Object padRight = { 0 };
 Object ball     = { 0 };
 
 enum GameState gState = G_MENU;
-Mix_Chunk* sfx;
 Mix_Chunk* bounce1;
 Mix_Chunk* bounce2;
 
@@ -29,12 +28,12 @@ b8 Collision(Object* a, Object* b)
     return false;
 }
 
-void Test_Menu(f32 delta)
+void Test_Menu()
 {
     if (Input_IsKeyDown(SDL_SCANCODE_SPACE))
     {
         gState = G_ACTIVE;
-        Audio_PlaySound(sfx, false);
+        Audio_PlaySound(bounce2, false);
     }
 }
 
@@ -107,7 +106,7 @@ void Test_Active(f32 delta)
     if (scorePlayer1 == 3 || scorePlayer2 == 3)
     {
         gState = G_ENDGAME;
-        Audio_PlaySound(sfx, false);
+        Audio_PlaySound(bounce2, false);
     }
 }
 
@@ -126,7 +125,6 @@ void Test_RestartRound()
 
 void Test_Init()
 {
-    sfx = Audio_LoadWav("assets/sound/sfx1.wav");
     bounce1 = Audio_LoadWav("assets/sound/bounce1.wav");
     bounce2 = Audio_LoadWav("assets/sound/bounce2.wav");
 

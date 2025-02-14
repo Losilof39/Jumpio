@@ -27,10 +27,10 @@
     <ClCompile Include="src\engine\core.h">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\renderer\r_shader.c">
+    <ClCompile Include="src\engine\renderer\r_shader.c">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\renderer\renderer2D.c">
+    <ClCompile Include="src\engine\renderer\renderer2D.c">
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\application\app.c">
@@ -41,7 +41,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\renderer\renderer2D.h">
+    <ClInclude Include="src\engine\renderer\renderer2D.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glad\include\KHR\khrplatform.h">
@@ -53,7 +53,7 @@
     <ClInclude Include="src\engine\log.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="src\renderer\r_shader.h">
+    <ClInclude Include="src\engine\renderer\r_shader.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\application\app.h">

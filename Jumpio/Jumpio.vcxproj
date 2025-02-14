@@ -139,15 +139,15 @@
     <ClCompile Include="src\engine\input.c" />
     <ClCompile Include="src\engine\log.c" />
     <ClCompile Include="src\main.c" />
-    <ClCompile Include="src\renderer\renderer2D.c" />
-    <ClCompile Include="src\renderer\r_shader.c" />
+    <ClCompile Include="src\engine\renderer\renderer2D.c" />
+    <ClCompile Include="src\engine\renderer\r_shader.c" />
     <ClCompile Include="vendor\glad\src\glad.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\application\app.h" />
     <ClInclude Include="src\engine\input.h" />
-    <ClInclude Include="src\renderer\renderer2D.h" />
-    <ClInclude Include="src\renderer\r_shader.h" />
+    <ClInclude Include="src\engine\renderer\renderer2D.h" />
+    <ClInclude Include="src\engine\renderer\r_shader.h" />
     <ClInclude Include="vendor\glad\include\glad\glad.h" />
     <ClInclude Include="vendor\glad\include\KHR\khrplatform.h" />
     <ClInclude Include="src\engine\log.h" />

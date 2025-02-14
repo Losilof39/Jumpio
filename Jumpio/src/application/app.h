@@ -9,7 +9,6 @@ typedef struct Application
 	char* version;
 	u8 width;
 	u8 height;
-	SDL_GLContext glContext;
 	SDL_Window* pWindow;
 	enum GameState gState;
 }Application;

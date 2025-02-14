@@ -1,7 +1,8 @@
 #include "renderer2D.h"
 #include "engine/log.h"
 
-typedef struct s_R2DStorage
+
+typedef struct RenderState
 {
 	GLuint VAO;
 	GLuint screenVAO;
@@ -9,7 +10,9 @@ typedef struct s_R2DStorage
 	Shader spriteShader;
 	Shader fbShader;
 	mat4 camOrtho;
-}R2DStorage;
+	SDL_Window* pWindow;
+	SDL_GLContext glContext;
+}RenderState;
 
 // 2D draw command
 typedef struct twodcommand
@@ -21,8 +24,8 @@ typedef struct twodcommand
 	struct twodcommand* next;
 }twodcommand;
 
-R2DStorage s_Data;
-twodcommand* head_command = NULL;
+static RenderState renderState;
+static twodcommand* head_command = NULL;
 
 void GLAPIENTRY
 MessageCallback(GLenum source,
@@ -39,8 +42,43 @@ MessageCallback(GLenum source,
 	log_error(message);
 }
 
-void Renderer2D_Init()
+void Renderer2D_StartOpenGL()
 {
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
+
+	renderState.glContext = SDL_GL_CreateContext(renderState.pWindow);
+
+	if (renderState.glContext == NULL)
+	{
+		log_error("Failed to create an OpenGL context!\n");
+	}
+
+	SDL_GL_MakeCurrent(renderState.pWindow, renderState.glContext);
+
+	if (gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress) < 0)
+	{
+		log_error("Failed to load OpenGL library!\n");
+	}
+
+	log_debug("OpenGL 4.6 context created successfully");
+
+	// enable OpenGL 4.6 debug features
+	glEnable(GL_DEBUG_OUTPUT);
+	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+	glDebugMessageCallback(MessageCallback, 0);
+
+	log_debug("Debug Output feature is enabled");
+}
+
+void Renderer2D_Init(SDL_Window* window)
+{
+	renderState.pWindow = window;
+
+	Renderer2D_StartOpenGL();
+
 	// configure VAO/VBO
 	unsigned int VBO;
 	float vertices[] = {
@@ -54,13 +92,13 @@ void Renderer2D_Init()
 		1.0f, 0.0f, 1.0f, 0.0f
 	};
 
-	glGenVertexArrays(1, &s_Data.VAO);
+	glGenVertexArrays(1, &renderState.VAO);
 	glGenBuffers(1, &VBO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glBindVertexArray(s_Data.VAO);
+	glBindVertexArray(renderState.VAO);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -69,7 +107,7 @@ void Renderer2D_Init()
 
 	// REMEMBER TO REIMPLEMENT THIS IF YOU WANNA SEE SMTH!!
 
-	s_Data.flatColorShader = Shader_Create("flatcolor", "shaders/flatcolor.vs", "shaders/flatcolor.ps");
+	renderState.flatColorShader = Shader_Create("flatcolor", "shaders/flatcolor.vs", "shaders/flatcolor.ps");
 	//s_Data.spriteShader = Shader_Create("sprite", "shader_files/sprite.vs", "shader_files/sprite.ps");
 
 	glm_ortho(0.0f,
@@ -78,25 +116,36 @@ void Renderer2D_Init()
 		0.0f,
 		-1.0f,
 		1.0f,
-		s_Data.camOrtho);
+		renderState.camOrtho);
 
 	/*Shader_Use(s_Data.spriteShader);
-	Shader_SetMat4(s_Data.spriteShader, "u_Ortho", s_Data.camOrtho);
-	Shader_SetInt(s_Data.spriteShader, "image", 0);
+	Shader_SetMat4(renderState.spriteShader, "u_Ortho", renderState.camOrtho);
+	Shader_SetInt(renderState.spriteShader, "image", 0);
 	Shader_Unbind();
 
 	Shader_Use(s_Data.flatColorShader);
-	Shader_SetMat4(s_Data.flatColorShader, "u_Ortho", s_Data.camOrtho);
+	Shader_SetMat4(renderState.flatColorShader, "u_Ortho", renderState.camOrtho);
 	Shader_Unbind();*/
 
-	Shader_Use(s_Data.flatColorShader);
-	Shader_SetMat4(s_Data.flatColorShader, "u_Ortho", s_Data.camOrtho);
+	Shader_Use(renderState.flatColorShader);
+	Shader_SetMat4(renderState.flatColorShader, "u_Ortho", renderState.camOrtho);
 	Shader_Unbind();
 
 }
 
 void Renderer2D_Cleanup()
 {
+}
+
+void R2D_StartRendition(void)
+{
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void R2D_StopRendition(void)
+{
+	SDL_GL_SwapWindow(renderState.pWindow);
 }
 
 void R2D_DrawColoredQuad(vec3 position, vec3 size, vec3 color)
@@ -111,11 +160,11 @@ void R2D_DrawColoredQuad(vec3 position, vec3 size, vec3 color)
 	glm_translate(translate, position);
 	glm_mat4_mul(translate, scale, model);
 
-	Shader_Use(s_Data.flatColorShader);
-	Shader_SetVec3(s_Data.flatColorShader, "u_Color", color);
-	Shader_SetMat4(s_Data.flatColorShader, "u_Model", model);
+	Shader_Use(renderState.flatColorShader);
+	Shader_SetVec3(renderState.flatColorShader, "u_Color", color);
+	Shader_SetMat4(renderState.flatColorShader, "u_Model", model);
 
-	glBindVertexArray(s_Data.VAO);
+	glBindVertexArray(renderState.VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
 

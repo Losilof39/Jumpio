@@ -2,6 +2,7 @@
 #define RENDERER2D_H
 
 #include <glad/glad.h>
+#include <SDL3/SDL.h>
 #include "r_shader.h"
 
 void GLAPIENTRY
@@ -13,7 +14,7 @@ MessageCallback(GLenum source,
 	const GLchar* message,
 	const void* userParam);
 
-void Renderer2D_Init();
+void Renderer2D_Init(SDL_Window* window);
 void Renderer2D_Cleanup();
 
 void R2D_StartRendition(void);

@@ -33,7 +33,6 @@ Shader Shader_Create(const char* name, const char* pVertPath, const char* pFragP
     GLuint mVertShader, mFragShader;
     const char* VertSource;
     const char* FragSource;
-    char* InfoLog[512] = { 0 };
     Shader shader = { 0 };
     int success;
 

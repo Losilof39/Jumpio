@@ -1,6 +1,26 @@
 #include "renderer2D.h"
 #include "engine/log.h"
 
+typedef struct s_R2DStorage
+{
+	GLuint VAO;
+	GLuint screenVAO;
+	Shader flatColorShader;
+	Shader spriteShader;
+	Shader fbShader;
+	mat4 camOrtho;
+}R2DStorage;
+
+// 2D draw command
+typedef struct twodcommand
+{
+	unsigned int glTexture;
+	vec3 position;
+	vec2 size;
+	float light;
+	struct twodcommand* next;
+}twodcommand;
+
 R2DStorage s_Data;
 twodcommand* head_command = NULL;
 
@@ -19,7 +39,7 @@ MessageCallback(GLenum source,
 	log_error(message);
 }
 
-void InitRenderer2D()
+void Renderer2D_Init()
 {
 	// configure VAO/VBO
 	unsigned int VBO;

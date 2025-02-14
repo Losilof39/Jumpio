@@ -36,6 +36,9 @@
     <ClCompile Include="src\application\app.c">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\input.c">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\renderer\renderer2D.h">
@@ -56,7 +59,7 @@
     <ClInclude Include="src\application\app.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\EX.h">
+    <ClInclude Include="src\engine\input.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,26 +4,6 @@
 #include <glad/glad.h>
 #include "r_shader.h"
 
-typedef struct s_R2DStorage
-{
-	GLuint VAO;
-	GLuint screenVAO;
-	Shader flatColorShader;
-	Shader spriteShader;
-	Shader fbShader;
-	mat4 camOrtho;
-}R2DStorage;
-
-// 2D draw command
-typedef struct twodcommand
-{
-	unsigned int glTexture;
-	vec3 position;
-	vec2 size;
-	float light;
-	struct twodcommand* next;
-}twodcommand;
-
 void GLAPIENTRY
 MessageCallback(GLenum source,
 	GLenum type,
@@ -33,7 +13,7 @@ MessageCallback(GLenum source,
 	const GLchar* message,
 	const void* userParam);
 
-void InitRenderer2D();
+void Renderer2D_Init();
 
 void R2D_StartRendition(void);
 void R2D_StopRendition(void);

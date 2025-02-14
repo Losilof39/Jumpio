@@ -63,7 +63,7 @@ void Renderer2D_StartOpenGL()
 		log_error("Failed to load OpenGL library!\n");
 	}
 
-	log_debug("OpenGL 4.6 context created successfully");
+	log_info("OpenGL 4.6 context created successfully");
 
 	// enable OpenGL 4.6 debug features
 	glEnable(GL_DEBUG_OUTPUT);

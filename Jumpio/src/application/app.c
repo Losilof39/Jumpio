@@ -12,7 +12,7 @@ void Application_Init()
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         log_error("Failed to init SDL3");
 
-    log_debug("SDL3 init successful");
+    log_info("SDL3 init successful");
 
     pGame->pWindow = SDL_CreateWindow((const char*)pGame->title,
         WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL);
@@ -23,18 +23,21 @@ void Application_Init()
         log_error("Failed to create a SDL window!");
     }
 
-    log_debug("Window created");
+    log_info("Window created");
 
     SDL_ShowWindow(pGame->pWindow);
 
     SDL_ShowCursor();
 
-    log_debug("Initializing OpenGL 4.6 ...");
+    log_info("Initializing OpenGL 4.6 ...");
 
     //Memory_Init();
     //Filesystem_Init();
-    //Audio_Init();
+    log_info("Init audio system...");
+    Audio_Init();
+    log_info("Init input system...");
     Input_Init();
+    log_info("Init renderer system...");
     Renderer2D_Init(pGame->pWindow);
 }
 vec3 pos = { 0 };
@@ -142,6 +145,7 @@ void Application_Cleanup()
 {
     Input_Cleanup();
     Renderer2D_Cleanup();
+    Audio_Cleanup();
 
     SDL_DestroyWindow(pGame->pWindow);
     SDL_Quit();

@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="src\application\app.c" />
     <ClCompile Include="src\engine\audio.c" />
+    <ClCompile Include="src\engine\common.c" />
     <ClCompile Include="src\engine\data_types.h" />
     <ClCompile Include="src\engine\input.c" />
     <ClCompile Include="src\engine\log.c" />
@@ -150,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="src\application\app.h" />
     <ClInclude Include="src\engine\audio.h" />
+    <ClInclude Include="src\engine\common.h" />
     <ClInclude Include="src\engine\engine.h" />
     <ClInclude Include="src\engine\input.h" />
     <ClInclude Include="src\engine\renderer\font.h" />

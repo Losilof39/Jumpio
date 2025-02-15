@@ -5,4 +5,5 @@
 #include "engine/input.h"
 #include "engine/log.h"
 #include "engine/audio.h"
+#include "engine/common.h"
 #include "time.h"

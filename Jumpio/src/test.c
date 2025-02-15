@@ -36,7 +36,7 @@ void Test_Menu()
         Audio_PlaySound(bounce2, false);
     }
 
-    R2D_DrawText(FormatText("Press SPACEBAR to play %d", 1), 0, 0, 0.6f, (vec3){1.0f, 1.0f, 1.0f});
+    R2D_DrawText("Press SPACEBAR to play", WINDOW_WIDTH - 550, WINDOW_HEIGHT - 48, 0.4f, (vec3){1.0f, 1.0f, 1.0f});
 }
 
 void Test_Active(f32 delta)
@@ -107,6 +107,15 @@ void Test_Active(f32 delta)
 
     if (scorePlayer1 == 3 || scorePlayer2 == 3)
     {
+        if (scorePlayer1 > scorePlayer2)
+        {
+            R2D_DrawText("PLAYER 1 WINS", WINDOW_WIDTH / 4, WINDOW_HEIGHT / 2, 0.5f, (vec3) { 1.0f, 1.0f, 1.0f });
+        }
+        else
+        {
+            R2D_DrawText("PLAYER 2 WINS", WINDOW_WIDTH / 4, WINDOW_HEIGHT / 2 - 40, 0.5f, (vec3) { 1.0f, 1.0f, 1.0f });
+        }
+        
         gState = G_ENDGAME;
         Audio_PlaySound(bounce2, false);
     }
@@ -161,6 +170,8 @@ void Test_Update()
 
         case G_ENDGAME:
         {
+            SDL_Delay(2000);
+
             Test_RestartRound();
             scorePlayer1 = 0;
             scorePlayer2 = 0;
@@ -175,6 +186,9 @@ void Test_Update()
     R2D_DrawColoredQuad(padLeft.pos, padLeft.size, padLeft.col);
     R2D_DrawColoredQuad(padRight.pos, padRight.size, padRight.col);
     R2D_DrawColoredQuad(ball.pos, ball.size, ball.col);
+
+    R2D_DrawText(FormatText("%d", scorePlayer1), WINDOW_WIDTH / 4, 40, 0.75f, (vec3) { 1.0f, 1.0f, 1.0f });
+    R2D_DrawText(FormatText("%d", scorePlayer2), WINDOW_WIDTH * 3/4, 40, 0.75f, (vec3) { 1.0f, 1.0f, 1.0f });
 }
 
 void Test_Cleanup()

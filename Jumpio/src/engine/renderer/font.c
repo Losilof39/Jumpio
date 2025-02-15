@@ -12,8 +12,8 @@ void Font_Init()
     characters = (Character*)malloc(sizeof(Character) * 128);
     memset(characters, 0, sizeof(Character) * 128);
 
-    //char* fontFile = "assets/font/PressStart2P-vaV7.ttf";
-    char* fontFile = "assets/font/arial.ttf";
+    char* fontFile = "assets/font/PressStart2P-vaV7.ttf";
+    //char* fontFile = "assets/font/arial.ttf";
 
     if (FT_Init_FreeType(&ft))
     {
@@ -86,17 +86,6 @@ void Font_Init()
 Character* Font_GetCharactersBuffer()
 {
     return characters;
-}
-
-char* FormatText(const char* text, ...)
-{
-    static char buffer[256];
-    va_list args;
-    va_start(args, text);
-
-    vsprintf(buffer, text, args);
-    va_end(args);
-    return buffer;
 }
 
 void Font_Cleanup()

@@ -19,4 +19,6 @@ void Font_Cleanup();
 Character* Font_GetCharactersBuffer();
 u16 Font_GetFontSize();
 
+char* FormatText(const char* text, ...);
+
 #endif

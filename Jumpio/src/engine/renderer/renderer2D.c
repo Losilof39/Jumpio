@@ -1,7 +1,6 @@
 #include "renderer2D.h"
 #include "engine/log.h"
 #include "font.h"
-#include "font.h"
 
 typedef struct RenderState
 {

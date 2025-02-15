@@ -36,7 +36,7 @@ void Test_Menu()
         Audio_PlaySound(bounce2, false);
     }
 
-    R2D_DrawText("Press SPACEBAR to play", 0, 0, 0.6f, (vec3){1.0f, 1.0f, 1.0f});
+    R2D_DrawText(FormatText("Press SPACEBAR to play %d", 1), 0, 0, 0.6f, (vec3){1.0f, 1.0f, 1.0f});
 }
 
 void Test_Active(f32 delta)

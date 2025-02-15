@@ -88,6 +88,17 @@ Character* Font_GetCharactersBuffer()
     return characters;
 }
 
+char* FormatText(const char* text, ...)
+{
+    static char buffer[256];
+    va_list args;
+    va_start(args, text);
+
+    vsprintf(buffer, text, args);
+    va_end(args);
+    return buffer;
+}
+
 void Font_Cleanup()
 {
     free(characters);

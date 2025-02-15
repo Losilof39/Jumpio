@@ -214,8 +214,9 @@ void R2D_DrawText(char* text, float x, float y, float scale, vec3 color)
 	Character* charPtr = R2D_GetCharactersBuffer();
 
 	// iterate through all characters
+	char* c = text;
 
-	for (char* c = text; *c >= 0; c++)
+	for (u8 i = 0; i < strlen(text); i++, c++)
 	{
 		Character ch = charPtr[*c];
 

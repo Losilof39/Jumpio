@@ -159,12 +159,12 @@ void Renderer2D_Init(SDL_Window* window)
 	glBindVertexArray(0);
 
 
-	R2D_FontInit();
+	Font_Init();
 }
 
 void Renderer2D_Cleanup()
 {
-	R2D_FontCleanup();
+	Font_Cleanup();
 }
 
 void R2D_StartRendition(void)
@@ -211,7 +211,7 @@ void R2D_DrawText(char* text, float x, float y, float scale, vec3 color)
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(RState.fontVAO);
 
-	Character* charPtr = R2D_GetCharactersBuffer();
+	Character* charPtr = Font_GetCharactersBuffer();
 
 	// iterate through all characters
 	char* c = text;
@@ -221,19 +221,19 @@ void R2D_DrawText(char* text, float x, float y, float scale, vec3 color)
 		Character ch = charPtr[*c];
 
 		float xpos = x + ch.bearing[0] * scale;
-		float ypos = y - (ch.size[1] - ch.bearing[1]) * scale;
+		float ypos = y + (Font_GetFontSize() - ch.bearing[1]) * scale;
 
 		float w = ch.size[0] * scale;
 		float h = ch.size[1] * scale;
 		// update VBO for each character
 		float vertices[6][4] = {
-			{ xpos,     ypos + h,   0.0f, 0.0f },
-			{ xpos,     ypos,       0.0f, 1.0f },
-			{ xpos + w, ypos,       1.0f, 1.0f },
+			{ xpos,     ypos,       0.0f, 0.0f },
+			{ xpos,     ypos + h,   0.0f, 1.0f },
+			{ xpos + w, ypos,       1.0f, 0.0f },
 
-			{ xpos,     ypos + h,   0.0f, 0.0f },
-			{ xpos + w, ypos,       1.0f, 1.0f },
-			{ xpos + w, ypos + h,   1.0f, 0.0f }
+			{ xpos,     ypos + h,   0.0f, 1.0f },
+			{ xpos + w, ypos,       1.0f, 0.0f },
+			{ xpos + w, ypos + h,   1.0f, 1.0f }
 		};
 		// render glyph texture over quad
 		glBindTexture(GL_TEXTURE_2D, ch.textureID);

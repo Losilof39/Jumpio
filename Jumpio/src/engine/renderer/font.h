@@ -13,9 +13,10 @@ typedef struct Character {
     unsigned int advance;   // Horizontal offset to advance to next glyph
 }Character;
 
-void R2D_FontInit();
-void R2D_FontCleanup();
+void Font_Init();
+void Font_Cleanup();
 
-Character* R2D_GetCharactersBuffer();
+Character* Font_GetCharactersBuffer();
+u16 Font_GetFontSize();
 
 #endif

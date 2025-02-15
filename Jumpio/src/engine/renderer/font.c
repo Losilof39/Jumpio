@@ -5,13 +5,15 @@
 
 static FT_Library ft;
 static Character* characters;
+static u16 fontSize;
 
-void R2D_FontInit()
+void Font_Init()
 {
     characters = (Character*)malloc(sizeof(Character) * 128);
     memset(characters, 0, sizeof(Character) * 128);
 
-    char* fontFile = "assets/font/PressStart2P-vaV7.ttf";
+    //char* fontFile = "assets/font/PressStart2P-vaV7.ttf";
+    char* fontFile = "assets/font/arial.ttf";
 
     if (FT_Init_FreeType(&ft))
     {
@@ -74,17 +76,24 @@ void R2D_FontInit()
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
+    fontSize = face->size->metrics.y_ppem;
+
     // destroy FreeType once we're finished
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
 }
 
-Character* R2D_GetCharactersBuffer()
+Character* Font_GetCharactersBuffer()
 {
     return characters;
 }
 
-void R2D_FontCleanup()
+void Font_Cleanup()
 {
     free(characters);
+}
+
+u16 Font_GetFontSize()
+{
+    return fontSize;
 }

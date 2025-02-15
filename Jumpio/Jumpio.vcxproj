@@ -142,6 +142,7 @@
     <ClCompile Include="src\engine\log.c" />
     <ClCompile Include="src\engine\renderer\font.c" />
     <ClCompile Include="src\engine\time.c" />
+    <ClCompile Include="src\engine\zone.c" />
     <ClCompile Include="src\test.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\engine\renderer\renderer2D.c" />
@@ -158,6 +159,7 @@
     <ClInclude Include="src\engine\renderer\renderer2D.h" />
     <ClInclude Include="src\engine\renderer\r_shader.h" />
     <ClInclude Include="src\engine\time.h" />
+    <ClInclude Include="src\engine\zone.h" />
     <ClInclude Include="src\test.h" />
     <ClInclude Include="vendor\glad\include\glad\glad.h" />
     <ClInclude Include="vendor\glad\include\KHR\khrplatform.h" />

@@ -1,4 +1,5 @@
 #include "font.h"
+#include "engine/zone.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -9,7 +10,7 @@ static u16 fontSize;
 
 void Font_Init()
 {
-    characters = (Character*)malloc(sizeof(Character) * 128);
+    characters = (Character*)Z_Malloc(sizeof(Character) * 128, PU_STATIC, NULL);
     memset(characters, 0, sizeof(Character) * 128);
 
     char* fontFile = "assets/font/PressStart2P-vaV7.ttf";
@@ -80,7 +81,6 @@ void Font_Init()
 
     // destroy FreeType once we're finished
     FT_Done_Face(face);
-    FT_Done_FreeType(ft);
 }
 
 Character* Font_GetCharactersBuffer()
@@ -90,7 +90,8 @@ Character* Font_GetCharactersBuffer()
 
 void Font_Cleanup()
 {
-    free(characters);
+    FT_Done_FreeType(ft);
+    Z_Free(characters);
 }
 
 u16 Font_GetFontSize()

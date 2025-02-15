@@ -2,6 +2,7 @@
 #include <string.h>
 #include "r_shader.h"
 #include "engine/log.h"
+#include "engine/zone.h"
 
 char* Shader_GetSource(const char* fileName)
 {
@@ -21,7 +22,7 @@ char* Shader_GetSource(const char* fileName)
 
     /* Read File for Content */
     fp = fopen(fileName, "r");
-    shaderContent = memset(malloc(size), '\0', size);
+    shaderContent = memset(Z_Malloc(size, PU_STATIC, NULL), '\0', size);
     fread(shaderContent, 1, size - 1, fp);
     fclose(fp);
 
@@ -31,8 +32,8 @@ char* Shader_GetSource(const char* fileName)
 Shader Shader_Create(const char* name, const char* pVertPath, const char* pFragPath)
 {
     GLuint mVertShader, mFragShader;
-    const char* VertSource;
-    const char* FragSource;
+    char* VertSource;
+    char* FragSource;
     Shader shader = { 0 };
     int success;
 
@@ -65,6 +66,9 @@ Shader Shader_Create(const char* name, const char* pVertPath, const char* pFragP
 
     glDeleteShader(mVertShader);
     glDeleteShader(mFragShader);
+
+    Z_Free(VertSource);
+    Z_Free(FragSource);
 
     return shader;
 }

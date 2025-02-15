@@ -6,4 +6,5 @@
 #include "engine/log.h"
 #include "engine/audio.h"
 #include "engine/common.h"
+#include "zone.h"
 #include "time.h"

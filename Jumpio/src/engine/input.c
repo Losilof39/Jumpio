@@ -1,4 +1,5 @@
 #include "input.h"
+#include "zone.h"
 
 typedef struct KeyboardState
 {
@@ -27,7 +28,7 @@ static InputState* input;
 
 void Input_Init()
 {
-	input = (InputState*)malloc(sizeof(InputState));
+	input = (InputState*)Z_Malloc(sizeof(InputState), PU_STATIC, NULL);
 	memset(input, 0, sizeof(InputState));
 }
 
@@ -68,7 +69,7 @@ void Input_ProcessMouseMotion(SDL_MouseMotionEvent* motion)
 
 void Input_Cleanup()
 {
-	free(input);
+	Z_Free(input);
 }
 
 b8 Input_IsKeyDown(SDL_Scancode c)

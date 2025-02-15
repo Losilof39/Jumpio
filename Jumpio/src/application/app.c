@@ -29,7 +29,8 @@ void Application_Startup()
 
     log_info("Initializing OpenGL 4.6 ...");
 
-    //Memory_Init();
+    log_info("Init zone memory system...");
+    Z_Init();
     //Filesystem_Init();
     log_info("Init audio system...");
     Audio_Init();
@@ -97,10 +98,16 @@ void Application_Update()
     }
 }
 
+u8 Application_GetHeapSize()
+{
+    return appPtr->mbUsing;
+}
+
 void Application_Cleanup()
 {
     appPtr->Cleanup();
 
+    Z_FreeMemory();
     Input_Cleanup();
     Renderer2D_Cleanup();
     Audio_Cleanup();

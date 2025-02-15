@@ -11,6 +11,7 @@ int main(int argc, char** argv)
 
     app.title = "Jumpio";
     app.version = "0.0.1";
+    app.mbUsing = 1;
     app.Init = Test_Init;
     app.Update = Test_Update;
     app.Cleanup = Test_Cleanup;

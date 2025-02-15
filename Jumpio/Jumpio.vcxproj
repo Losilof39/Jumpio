@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>$(SolutionDir)\Jumpio\vendor\SDL3\lib\x64;$(SolutionDir)\Jumpio\vendor\cglm\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\Jumpio\vendor\SDL3\include;$(SolutionDir)\Jumpio\vendor\cglm\include;$(SolutionDir)\Jumpio\vendor\log;$(SolutionDir)\Jumpio\vendor\glad\include;$(SolutionDir)\Jumpio\src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Jumpio\vendor\SDL3\lib\x64;$(SolutionDir)\Jumpio\vendor\cglm\lib;$(SolutionDir)\Jumpio\vendor\freetype\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Jumpio\vendor\SDL3\include;$(SolutionDir)\Jumpio\vendor\cglm\include;$(SolutionDir)\Jumpio\vendor\log;$(SolutionDir)\Jumpio\vendor\glad\include;$(SolutionDir)\Jumpio\src;$(SolutionDir)\Jumpio\vendor\freetype\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -114,7 +114,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\Jumpio\vendor\cglm\lib;$(SolutionDir)\Jumpio\vendor\SDL3\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>cglm.lib;SDL3.lib;opengl32.lib;SDL3_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>cglm.lib;SDL3.lib;opengl32.lib;SDL3_mixer.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

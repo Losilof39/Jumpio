@@ -134,7 +134,7 @@ void Test_Init()
 
     glm_vec2_copy((vec3) { 20, 150 }, padLeft.size);
     glm_vec2_copy((vec3) { 20, 150 }, padRight.size);
-    glm_vec2_copy((vec2) { 10, 10 }, ball.size);
+    glm_vec2_copy((vec2) { 10, 10  }, ball.size);
 
     Test_RestartRound();
 }

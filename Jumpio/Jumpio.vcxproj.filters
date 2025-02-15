@@ -48,6 +48,9 @@
     <ClCompile Include="src\engine\time.c">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\renderer\font.c">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\renderer\renderer2D.h">
@@ -81,6 +84,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\time.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\renderer\font.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,6 @@
 #include "renderer2D.h"
 #include "engine/log.h"
-
+#include "font.h"
 
 typedef struct RenderState
 {
@@ -135,6 +135,7 @@ void Renderer2D_Init(SDL_Window* window)
 	Shader_SetMat4(RState.flatColorShader, "u_Ortho", RState.camOrtho);
 	Shader_Unbind();
 
+	R2D_FontInit();
 }
 
 void Renderer2D_Cleanup()

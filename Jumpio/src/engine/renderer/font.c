@@ -1,27 +1,90 @@
 #include "font.h"
-#include "engine/engine.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-typedef struct Character {
-    unsigned int textureID; // ID handle of the glyph texture
-    vec2   size;      // Size of glyph
-    vec2   bearing;   // Offset from baseline to left/top of glyph
-    unsigned int advance;   // Horizontal offset to advance to next glyph
-}Character;
-
 static FT_Library ft;
-static Character characters[128];
+static Character* characters;
 
 void R2D_FontInit()
 {
+    characters = (Character*)malloc(sizeof(Character) * 128);
+    memset(characters, 0, sizeof(Character) * 128);
+
+    char* fontFile = "assets/font/PressStart2P-vaV7.ttf";
+
     if (FT_Init_FreeType(&ft))
     {
         log_error("Could not init freetype library");
     }
+
+    FT_Face face;
+
+    if (FT_New_Face(ft, fontFile, 0, &face)) {
+        log_error("Failed to load font at path: %s", *fontFile);
+    }
+    else {
+        // set size to load glyphs as
+        FT_Set_Pixel_Sizes(face, 0, 48);
+
+        // disable byte-alignment restriction
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+        // load first 128 characters of ASCII set
+        for (unsigned char c = 0; c < 128; c++)
+        {
+            // Load character glyph 
+            if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+            {
+                log_error("Failed to load Glyph");
+                continue;
+            }
+            // generate texture
+            unsigned int texture;
+            glGenTextures(1, &texture);
+            glBindTexture(GL_TEXTURE_2D, texture);
+            glTexImage2D(
+                GL_TEXTURE_2D,
+                0,
+                GL_RED,
+                face->glyph->bitmap.width,
+                face->glyph->bitmap.rows,
+                0,
+                GL_RED,
+                GL_UNSIGNED_BYTE,
+                face->glyph->bitmap.buffer
+            );
+            // set texture options
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+            // now store character for later use
+            Character character = {
+                texture,
+                {face->glyph->bitmap.width, face->glyph->bitmap.rows},
+                {face->glyph->bitmap_left, face->glyph->bitmap_top},
+                (u16)(face->glyph->advance.x)
+            };
+
+            characters[c] = character;
+        }
+
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    // destroy FreeType once we're finished
+    FT_Done_Face(face);
+    FT_Done_FreeType(ft);
+}
+
+Character* R2D_GetCharactersBuffer()
+{
+    return characters;
 }
 
 void R2D_FontCleanup()
 {
+    free(characters);
 }

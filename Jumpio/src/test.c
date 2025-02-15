@@ -35,6 +35,8 @@ void Test_Menu()
         gState = G_ACTIVE;
         Audio_PlaySound(bounce2, false);
     }
+
+    R2D_DrawText("Press SPACEBAR to play", 0, 0, 0.5f, (vec3){1.0f, 1.0f, 1.0f});
 }
 
 void Test_Active(f32 delta)

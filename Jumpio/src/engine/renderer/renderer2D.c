@@ -1,11 +1,15 @@
 #include "renderer2D.h"
 #include "engine/log.h"
 #include "font.h"
+#include "font.h"
 
 typedef struct RenderState
 {
 	GLuint VAO;
 	GLuint screenVAO;
+	GLuint fontVBO;
+	GLuint fontVAO;
+	Shader fontShader;
 	Shader flatColorShader;
 	Shader spriteShader;
 	Shader fbShader;
@@ -24,7 +28,7 @@ typedef struct twodcommand
 	struct twodcommand* next;
 }twodcommand;
 
-static RenderState RState;
+RenderState RState;
 static twodcommand* head_command = NULL;
 
 void GLAPIENTRY
@@ -112,6 +116,7 @@ void Renderer2D_Init(SDL_Window* window)
 	// REMEMBER TO REIMPLEMENT THIS IF YOU WANNA SEE SMTH!!
 
 	RState.flatColorShader = Shader_Create("flatcolor", "shaders/flatcolor.vs", "shaders/flatcolor.ps");
+	RState.fontShader = Shader_Create("font", "shaders/font.vs", "shaders/font.ps");
 	//s_Data.spriteShader = Shader_Create("sprite", "shader_files/sprite.vs", "shader_files/sprite.ps");
 
 	glm_ortho(0.0f,
@@ -135,11 +140,31 @@ void Renderer2D_Init(SDL_Window* window)
 	Shader_SetMat4(RState.flatColorShader, "u_Ortho", RState.camOrtho);
 	Shader_Unbind();
 
+	Shader_Use(RState.fontShader);
+	Shader_SetMat4(RState.fontShader, "u_Ortho", RState.camOrtho);
+	Shader_Unbind();
+
+	//glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glGenVertexArrays(1, &RState.fontVAO);
+	glGenBuffers(1, &RState.fontVBO);
+	glBindVertexArray(RState.fontVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, RState.fontVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
+
 	R2D_FontInit();
 }
 
 void Renderer2D_Cleanup()
 {
+	R2D_FontCleanup();
 }
 
 void R2D_StartRendition(void)
@@ -175,6 +200,55 @@ void R2D_DrawColoredQuad(vec3 position, vec2 size, vec3 color)
 
 
 	Shader_Unbind();
+}
+
+void R2D_DrawText(char* text, float x, float y, float scale, vec3 color)
+{
+	// activate corresponding render state	
+	Shader_Use(RState.fontShader);
+	Shader_SetVec3(RState.fontShader, "textColor", color);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindVertexArray(RState.fontVAO);
+
+	Character* charPtr = R2D_GetCharactersBuffer();
+
+	// iterate through all characters
+
+	for (char* c = text; *c >= 0; c++)
+	{
+		Character ch = charPtr[*c];
+
+		float xpos = x + ch.bearing[0] * scale;
+		float ypos = y - (ch.size[1] - ch.bearing[1]) * scale;
+
+		float w = ch.size[0] * scale;
+		float h = ch.size[1] * scale;
+		// update VBO for each character
+		float vertices[6][4] = {
+			{ xpos,     ypos + h,   0.0f, 0.0f },
+			{ xpos,     ypos,       0.0f, 1.0f },
+			{ xpos + w, ypos,       1.0f, 1.0f },
+
+			{ xpos,     ypos + h,   0.0f, 0.0f },
+			{ xpos + w, ypos,       1.0f, 1.0f },
+			{ xpos + w, ypos + h,   1.0f, 0.0f }
+		};
+		// render glyph texture over quad
+		glBindTexture(GL_TEXTURE_2D, ch.textureID);
+		// update content of VBO memory
+		glBindBuffer(GL_ARRAY_BUFFER, RState.fontVBO);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // be sure to use glBufferSubData and not glBufferData
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		// render quad
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		// now advance cursors for next glyph (note that advance is number of 1/64 pixels)
+		x += (ch.advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+	}
+
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 //void R2D_DrawSprite(vec3* position, vec2 size, GLTexData* tex)

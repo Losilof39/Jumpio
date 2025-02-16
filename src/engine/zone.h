@@ -2,6 +2,7 @@
 #define ZONE_H
 
 #include <stdio.h>
+#include <stdlib.h>
 
 //
 // ZONE MEMORY

@@ -1,4 +1,4 @@
-#include "test.h"
+#include "pong.h"
 
 enum GameState { G_MENU = 0, G_ACTIVE, G_ENDGAME, G_EXIT };
 

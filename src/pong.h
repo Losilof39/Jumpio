@@ -1,5 +1,5 @@
-#ifndef TEST_H
-#define TEST_H
+#ifndef PONG_H
+#define PONG_H
 
 #include "engine/data_types.h"
 #include "engine/engine.h"

@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.7)
-set(CMAKE_C_STANDARD 90)
+cmake_minimum_required(VERSION 3.1)
+set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(Jumpio VERSION 1.0)
+project(Pong VERSION 1.0)
 
 if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
@@ -19,8 +19,8 @@ add_definitions(-DSHADER_PATH=\"${CMAKE_SOURCE_DIR}/shaders\")
 
 set(SOURCES
 src/main.c
-src/test.c
-src/test.h
+src/pong.c
+src/pong.h
 src/application/app.c
 src/application/app.h
 src/engine/audio.c
@@ -47,15 +47,15 @@ src/engine/renderer/renderer2D.c
 src/engine/renderer/renderer2D.h
 vendor/glad/src/glad.c)
 
-add_executable(Jumpio ${SOURCES})
+add_executable(Pong ${SOURCES})
 
-target_include_directories(Jumpio PRIVATE vendor/SDL3/include)
-target_include_directories(Jumpio PRIVATE vendor/glad/include)
-target_include_directories(Jumpio PRIVATE vendor/cglm/include)
-target_include_directories(Jumpio PRIVATE vendor/freetype/include)
-target_include_directories(Jumpio PRIVATE src)
+target_include_directories(Pong PRIVATE vendor/SDL3/include)
+target_include_directories(Pong PRIVATE vendor/glad/include)
+target_include_directories(Pong PRIVATE vendor/cglm/include)
+target_include_directories(Pong PRIVATE vendor/freetype/include)
+target_include_directories(Pong PRIVATE src)
 
-target_link_libraries(Jumpio ${CMAKE_CURRENT_SOURCE_DIR}/vendor/SDL3/lib/x64/SDL3.lib)
-target_link_libraries(Jumpio ${CMAKE_CURRENT_SOURCE_DIR}/vendor/SDL3/lib/x64/SDL3_mixer.lib)
-target_link_libraries(Jumpio ${CMAKE_CURRENT_SOURCE_DIR}/vendor/cglm/lib/cglm.lib)
-target_link_libraries(Jumpio ${CMAKE_CURRENT_SOURCE_DIR}/vendor/freetype/lib/freetype.lib)
+target_link_libraries(Pong ${CMAKE_CURRENT_SOURCE_DIR}/vendor/SDL3/lib/x64/SDL3.lib)
+target_link_libraries(Pong ${CMAKE_CURRENT_SOURCE_DIR}/vendor/SDL3/lib/x64/SDL3_mixer.lib)
+target_link_libraries(Pong ${CMAKE_CURRENT_SOURCE_DIR}/vendor/cglm/lib/cglm.lib)
+target_link_libraries(Pong ${CMAKE_CURRENT_SOURCE_DIR}/vendor/freetype/lib/freetype.lib)

@@ -1,4 +1,4 @@
-#include "test.h"
+#include "pong.h"
 #include "application/app.h"
 
 int main(int argc, char** argv)
